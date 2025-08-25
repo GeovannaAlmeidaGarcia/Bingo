@@ -31,10 +31,10 @@ function gerarLinha() {
   return linha;
 }
 
-// Cria o corpo da tabela com 5 linhas
+// Cria o corpo da tabela com 15 linhas
 function montarTabela() {
   bingoTableBody.innerHTML = '';
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 15; i++) {  // Criando 15 linhas
     bingoTableBody.appendChild(gerarLinha());
   }
 }
@@ -61,9 +61,9 @@ function sortearNumero() {
 
   numeroSorteado.textContent = `Número sorteado: ${letra}${numero}`;
 
-  // Preenche a primeira célula vazia na coluna correspondente
+  // Preenche a última célula vazia na coluna correspondente (célula mais abaixo)
   const colIndex = Object.keys(colunas).indexOf(letra);
-  for (let i = 0; i < bingoTableBody.rows.length; i++) {
+  for (let i = bingoTableBody.rows.length - 1; i >= 0; i--) {
     const cell = bingoTableBody.rows[i].cells[colIndex];
     if (cell.textContent === '') {
       cell.textContent = numero;
