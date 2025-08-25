@@ -9,23 +9,30 @@
 <body>
   <h1>Sorteador de Bingo</h1>
 
-  <table id="bingo">
-    <thead>
-      <tr>
-        <th>B</th>
-        <th>I</th>
-        <th>N</th>
-        <th>G</th>
-        <th>O</th>
-      </tr>
-    </thead>
-    <tbody id="bingo-body">
-      <!-- Números aparecerão aqui -->
-    </tbody>
-  </table>
+  <table class="layout-tabela">
+    <tr>
+      <td>
+        <table id="bingo">
+          <thead>
+            <tr>
+              <th>B</th>
+              <th>I</th>
+              <th>N</th>
+              <th>G</th>
+              <th>O</th>
+            </tr>
+          </thead>
+          <tbody id="bingo-body">
+          </tbody>
+        </table>
+      </td>
 
-  <button id="sortear">Sortear Número</button>
-  <p id="numero-sorteado">Número sorteado: --</p>
+      <td style="vertical-align: top; padding-left: 30px;">
+        <button id="sortear">Sortear Número</button>
+        <p id="numero-sorteado">Número sorteado: --</p>
+      </td>
+    </tr>
+  </table>
 
   <script src="script.js"></script>
 </body>

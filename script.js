@@ -3,16 +3,17 @@ const numeroSorteado = document.getElementById('numero-sorteado');
 const botaoSortear = document.getElementById('sortear');
 
 const colunas = {
-  B: {min: 1, max: 15},
-  I: {min: 16, max: 30},
-  N: {min: 31, max: 45},
-  G: {min: 46, max: 60},
-  O: {min: 61, max: 75},
+  B: { min: 1, max: 15 },
+  I: { min: 16, max: 30 },
+  N: { min: 31, max: 45 },
+  G: { min: 46, max: 60 },
+  O: { min: 61, max: 75 },
 };
 
 let numerosRestantes = [];
+let totalNumerosSorteados = 0;
 
-// Inicializa todos os números do bingo
+
 function inicializarNumeros() {
   numerosRestantes = [];
   for (let i = 1; i <= 75; i++) {
@@ -20,26 +21,26 @@ function inicializarNumeros() {
   }
 }
 
-// Gera uma linha de bingo com uma célula por letra
+
 function gerarLinha() {
   const linha = document.createElement('tr');
   for (let letra in colunas) {
     const celula = document.createElement('td');
-    celula.textContent = ''; // vazio inicialmente
+    celula.textContent = ''; 
     linha.appendChild(celula);
   }
   return linha;
 }
 
-// Cria o corpo da tabela com 15 linhas
+
 function montarTabela() {
   bingoTableBody.innerHTML = '';
-  for (let i = 0; i < 15; i++) {  // Criando 15 linhas
+  for (let i = 0; i < 15; i++) {
     bingoTableBody.appendChild(gerarLinha());
   }
 }
 
-// Sorteia um número aleatório não repetido
+
 function sortearNumero() {
   if (numerosRestantes.length === 0) {
     alert('Todos os números foram sorteados!');
@@ -48,8 +49,9 @@ function sortearNumero() {
 
   const indice = Math.floor(Math.random() * numerosRestantes.length);
   const numero = numerosRestantes.splice(indice, 1)[0];
+  totalNumerosSorteados++;
 
-  // Descobre a letra da coluna
+
   let letra = '';
   for (let l in colunas) {
     const faixa = colunas[l];
@@ -61,7 +63,7 @@ function sortearNumero() {
 
   numeroSorteado.textContent = `Número sorteado: ${letra}${numero}`;
 
-  // Preenche a última célula vazia na coluna correspondente (célula mais abaixo)
+
   const colIndex = Object.keys(colunas).indexOf(letra);
   for (let i = bingoTableBody.rows.length - 1; i >= 0; i--) {
     const cell = bingoTableBody.rows[i].cells[colIndex];
@@ -70,10 +72,13 @@ function sortearNumero() {
       break;
     }
   }
+
+
+  if (totalNumerosSorteados === 75) {
+    alert('Todos os números foram sorteados e a tabela está completa!');
+  }
 }
 
-// Inicialização
 inicializarNumeros();
 montarTabela();
-
 botaoSortear.addEventListener('click', sortearNumero);

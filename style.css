@@ -6,34 +6,39 @@ body {
 
 h1 {
   margin-top: 20px;
+  margin-bottom: 10px;
 }
 
-table {
-  margin: 20px auto;
+#bingo {
   border-collapse: collapse;
-  font-size: 24px;
+  font-size: 14px;
 }
 
-th, td {
+#bingo th, #bingo td {
   border: 1px solid #333;
-  padding: 15px;
-  width: 60px;
-  height: 60px;
+  padding: 6px;
+  width: 40px;
+  height: 40px;
   text-align: center;
 }
 
-th {
-  background-color: #007BFF;
-  color: white;
+#bingo th {
+  background-color: #abb5c0;
+  color: rgb(40, 10, 10);
 }
 
 button {
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  margin-top: 0;
 }
 
 #numero-sorteado {
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 20px;
+  text-align: left;
+}
+.layout-tabela {
+  margin: 0 auto; 
 }
