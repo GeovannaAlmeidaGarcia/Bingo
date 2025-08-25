@@ -1,77 +1,79 @@
-const items = [
-  "Winter is Coming", "Dracarys", "The North Remembers", "You know nothing, Jon Snow",
-  "Valar Morghulis", "Hodor", "Red Wedding", "Iron Throne", "Wildfire",
-  "The Night King", "White Walkers", "Faceless Men", "House Stark", "House Lannister",
-  "House Targaryen", "Jon Snow", "Daenerys Targaryen", "Arya Stark", "Cersei Lannister",
-  "Tyrion Lannister", "Bran Stark", "Sansa Stark", "Jaime Lannister", "Melisandre",
-  "Hold the Door", "Longclaw", "Direwolves", "Three-Eyed Raven", "King's Landing",
-  "Battle of the Bastards"
-];
+const bingoTableBody = document.getElementById('bingo-body');
+const numeroSorteado = document.getElementById('numero-sorteado');
+const botaoSortear = document.getElementById('sortear');
 
-function shuffle(array) {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
-function generateBingoBoard() {
-  const board = document.getElementById('bingo-board');
-  board.innerHTML = "";
-
-  const shuffledItems = shuffle(items).slice(0, 24);
-  const cells = [];
-
-  for (let i = 0; i < 25; i++) {
-    const cell = document.createElement('div');
-    cell.classList.add('cell');
-    cell.dataset.index = i;
-
-    if (i === 12) {
-      cell.textContent = "FREE";
-      cell.classList.add('marked');
-    } else {
-      const text = shuffledItems.shift();
-      cell.textContent = text;
-    }
-
-    cell.addEventListener('click', () => {
-      cell.classList.toggle('marked');
-      checkForBingo(cells);
-    });
-
-    board.appendChild(cell);
-    cells.push(cell);
-  }
-}
-
-function checkForBingo(cells) {
-  const winPatterns = [
-    [0,1,2,3,4],
-    [5,6,7,8,9],
-    [10,11,12,13,14],
-    [15,16,17,18,19],
-    [20,21,22,23,24],
-    [0,5,10,15,20],
-    [1,6,11,16,21],
-    [2,7,12,17,22],
-    [3,8,13,18,23],
-    [4,9,14,19,24],
-    [0,6,12,18,24],
-    [4,8,12,16,20]
-  ];
-
-  const allMarked = cells.every(cell => cell.classList.contains('marked'));
-
-  if (allMarked) {
-    setTimeout(() => alert("🎉 BINGO! Cartela cheia! 🎉"), 100);
-  }
-    }
-  
-
-
-window.onload = () => {
-  generateBingoBoard();
+const colunas = {
+  B: {min: 1, max: 15},
+  I: {min: 16, max: 30},
+  N: {min: 31, max: 45},
+  G: {min: 46, max: 60},
+  O: {min: 61, max: 75},
 };
+
+let numerosRestantes = [];
+
+// Inicializa todos os números do bingo
+function inicializarNumeros() {
+  numerosRestantes = [];
+  for (let i = 1; i <= 75; i++) {
+    numerosRestantes.push(i);
+  }
+}
+
+// Gera uma linha de bingo com uma célula por letra
+function gerarLinha() {
+  const linha = document.createElement('tr');
+  for (let letra in colunas) {
+    const celula = document.createElement('td');
+    celula.textContent = ''; // vazio inicialmente
+    linha.appendChild(celula);
+  }
+  return linha;
+}
+
+// Cria o corpo da tabela com 5 linhas
+function montarTabela() {
+  bingoTableBody.innerHTML = '';
+  for (let i = 0; i < 5; i++) {
+    bingoTableBody.appendChild(gerarLinha());
+  }
+}
+
+// Sorteia um número aleatório não repetido
+function sortearNumero() {
+  if (numerosRestantes.length === 0) {
+    alert('Todos os números foram sorteados!');
+    return;
+  }
+
+  const indice = Math.floor(Math.random() * numerosRestantes.length);
+  const numero = numerosRestantes.splice(indice, 1)[0];
+
+  // Descobre a letra da coluna
+  let letra = '';
+  for (let l in colunas) {
+    const faixa = colunas[l];
+    if (numero >= faixa.min && numero <= faixa.max) {
+      letra = l;
+      break;
+    }
+  }
+
+  numeroSorteado.textContent = `Número sorteado: ${letra}${numero}`;
+
+  // Preenche a primeira célula vazia na coluna correspondente
+  const colIndex = Object.keys(colunas).indexOf(letra);
+  for (let i = 0; i < bingoTableBody.rows.length; i++) {
+    const cell = bingoTableBody.rows[i].cells[colIndex];
+    if (cell.textContent === '') {
+      cell.textContent = numero;
+      break;
+    }
+  }
+}
+
+// Inicialização
+inicializarNumeros();
+montarTabela();
+
+botaoSortear.addEventListener('click', sortearNumero);

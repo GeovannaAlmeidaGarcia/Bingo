@@ -2,23 +2,31 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Bingo - Game of Thrones</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bingo</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <h1>Sorteador de Bingo</h1>
 
- <div id="bingo">
-  <div class="bingo-header">
-    <div>B</div>
-    <div>I</div>
-    <div>N</div>
-    <div>G</div>
-    <div>O</div>
-  </div>
+  <table id="bingo">
+    <thead>
+      <tr>
+        <th>B</th>
+        <th>I</th>
+        <th>N</th>
+        <th>G</th>
+        <th>O</th>
+      </tr>
+    </thead>
+    <tbody id="bingo-body">
+      <!-- Números aparecerão aqui -->
+    </tbody>
+  </table>
 
-  <div id="bingo-board"></div>
+  <button id="sortear">Sortear Número</button>
+  <p id="numero-sorteado">Número sorteado: --</p>
 
   <script src="script.js"></script>
-
 </body>
 </html>
