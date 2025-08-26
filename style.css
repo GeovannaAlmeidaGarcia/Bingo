@@ -1,44 +1,156 @@
+/* Fundo inspirado em Game of Thrones */
 body {
-  font-family: Arial, sans-serif;
+  background-image: url('https://static1.srcdn.com/wordpress/wp-content/uploads/2019/04/Drogon-from-Game-of-Thrones.jpg');
+  color: #f1f1f1;
+  padding: 0px;
+  margin: 0;                
+  padding: 0;             
+  min-height: 100vh;        
+  background-size: cover;   
+  background-position: center center;
+  background-repeat: no-repeat;  
+  background-attachment: fixed;  
+  font-family: 'Cinzel', serif;
   text-align: center;
-  background-color: #f4f4f4;
+  overflow-x: hidden;
 }
 
+
+/* Título */
 h1 {
-  margin-top: 20px;
-  margin-bottom: 10px;
+  font-family: 'Cinzel', serif;
+  font-size: 48px;
+  color: #e74c3c;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 8px #000;
+  letter-spacing: 2px;
+  z-index: 10;
+  position: relative;
 }
 
-#bingo {
-  border-collapse: collapse;
-  font-size: 14px;
+/* Container horizontal das colunas */
+.bingo-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 30px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 10px;
+  z-index: 10;
+  position: relative;
 }
 
-#bingo th, #bingo td {
-  border: 1px solid #333;
-  padding: 6px;
-  width: 40px;
-  height: 40px;
-  text-align: center;
+/* Cada coluna */
+.coluna {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
 }
 
-#bingo th {
-  background-color: #abb5c0;
-  color: rgb(40, 10, 10);
+/* Letras do bingo */
+.coluna h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 32px;
+  color: #e74c3c;
+  margin-bottom: 12px;
+  text-shadow: 1px 1px 2px #000;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 0;
-}
-
-#numero-sorteado {
+/* Bolinhas animadas */
+.bolinha {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(145deg, #7f0000, #b71c1c);
+  color: #fff;
+  border-radius: 50%;
+  margin: 6px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
   font-size: 18px;
-  margin-top: 20px;
-  text-align: left;
+  box-shadow:
+    0 0 8px #900,
+    inset 0 0 6px #400;
+  cursor: default;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(-40px);
+  animation-fill-mode: forwards;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 5;
+  user-select: none;
+  text-shadow: 0 0 4px #f00;
 }
-.layout-tabela {
-  margin: 0 auto; 
+
+/* Efeito hover */
+.bolinha:hover {
+  transform: scale(1.15);
+  box-shadow:
+    0 0 15px #f00,
+    inset 0 0 10px #600;
+}
+
+/* Animação de queda */
+@keyframes quedaFogo {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px);
+    box-shadow:
+      0 0 8px #900,
+      inset 0 0 6px #400;
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(10px);
+    box-shadow:
+      0 0 18px #ff3300,
+      inset 0 0 12px #cc2200;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    box-shadow:
+      0 0 12px #e60000,
+      inset 0 0 8px #aa0000;
+  }
+}
+
+/* Botão */
+button {
+  padding: 14px 30px;
+  font-size: 18px;
+  background-color: #c0392b;
+  color: #fff;
+  border: 2px solid #7f0000;
+  cursor: pointer;
+  border-radius: 6px;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 0 10px #900;
+  margin-top: 40px;
+}
+
+button:hover {
+  background-color: #e74c3c;
+  border-color: #b71c1c;
+  box-shadow: 0 0 15px #f00;
+}
+
+/* Texto do número sorteado */
+#numero-sorteado {
+  font-size: 22px;
+  margin-top: 30px;
+  color: #de0a0a;
+  text-shadow: 2px 2px 4px #000;
+  font-weight: 700;
+  letter-spacing: 1px;
+  z-index: 10;
+  position: relative;
+  font-family: Georgia,serif;
 }

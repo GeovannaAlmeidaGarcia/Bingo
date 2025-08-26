@@ -2,37 +2,18 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bingo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bingo GOT</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Sorteador de Bingo</h1>
+  <h1>Sorteador de Bingo - Game of Thrones</h1>
 
-  <table class="layout-tabela">
-    <tr>
-      <td>
-        <table id="bingo">
-          <thead>
-            <tr>
-              <th>B</th>
-              <th>I</th>
-              <th>N</th>
-              <th>G</th>
-              <th>O</th>
-            </tr>
-          </thead>
-          <tbody id="bingo-body">
-          </tbody>
-        </table>
-      </td>
+  <div class="bingo-container" id="bingo-container">
+  </div>
 
-      <td style="vertical-align: top; padding-left: 30px;">
-        <button id="sortear">Sortear Número</button>
-        <p id="numero-sorteado">Número sorteado: --</p>
-      </td>
-    </tr>
-  </table>
+  <button id="sortear">Sortear Número</button>
+  <p id="numero-sorteado">Número sorteado: --</p>
 
   <script src="script.js"></script>
 </body>

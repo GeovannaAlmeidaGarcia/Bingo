@@ -1,6 +1,6 @@
-const bingoTableBody = document.getElementById('bingo-body');
 const numeroSorteado = document.getElementById('numero-sorteado');
 const botaoSortear = document.getElementById('sortear');
+const bingoContainer = document.getElementById('bingo-container');
 
 const colunas = {
   B: { min: 1, max: 15 },
@@ -14,6 +14,20 @@ let numerosRestantes = [];
 let totalNumerosSorteados = 0;
 
 
+function criarColunas() {
+  for (let letra in colunas) {
+    const colunaDiv = document.createElement('div');
+    colunaDiv.classList.add('coluna');
+    colunaDiv.id = `coluna-${letra}`;
+
+    const titulo = document.createElement('h2');
+    titulo.textContent = letra;
+    colunaDiv.appendChild(titulo);
+
+    bingoContainer.appendChild(colunaDiv);
+  }
+}
+
 function inicializarNumeros() {
   numerosRestantes = [];
   for (let i = 1; i <= 75; i++) {
@@ -21,25 +35,18 @@ function inicializarNumeros() {
   }
 }
 
+function criarBolinha(numero) {
+  const bolinha = document.createElement('div');
+  bolinha.className = 'bolinha';
+  bolinha.textContent = numero;
 
-function gerarLinha() {
-  const linha = document.createElement('tr');
-  for (let letra in colunas) {
-    const celula = document.createElement('td');
-    celula.textContent = ''; 
-    linha.appendChild(celula);
-  }
-  return linha;
+
+  setTimeout(() => {
+    bolinha.style.animation = 'quedaFogo 0.7s ease forwards';
+  }, 50);
+
+  return bolinha;
 }
-
-
-function montarTabela() {
-  bingoTableBody.innerHTML = '';
-  for (let i = 0; i < 15; i++) {
-    bingoTableBody.appendChild(gerarLinha());
-  }
-}
-
 
 function sortearNumero() {
   if (numerosRestantes.length === 0) {
@@ -50,7 +57,6 @@ function sortearNumero() {
   const indice = Math.floor(Math.random() * numerosRestantes.length);
   const numero = numerosRestantes.splice(indice, 1)[0];
   totalNumerosSorteados++;
-
 
   let letra = '';
   for (let l in colunas) {
@@ -63,22 +69,16 @@ function sortearNumero() {
 
   numeroSorteado.textContent = `Número sorteado: ${letra}${numero}`;
 
-
-  const colIndex = Object.keys(colunas).indexOf(letra);
-  for (let i = bingoTableBody.rows.length - 1; i >= 0; i--) {
-    const cell = bingoTableBody.rows[i].cells[colIndex];
-    if (cell.textContent === '') {
-      cell.textContent = numero;
-      break;
-    }
-  }
-
+  const colunaDiv = document.getElementById(`coluna-${letra}`);
+  const bolinha = criarBolinha(numero);
+  colunaDiv.appendChild(bolinha);
 
   if (totalNumerosSorteados === 75) {
-    alert('Todos os números foram sorteados e a tabela está completa!');
+    alert('Todos os números foram sorteados!');
   }
 }
 
+// Inicialização
+criarColunas();
 inicializarNumeros();
-montarTabela();
 botaoSortear.addEventListener('click', sortearNumero);
